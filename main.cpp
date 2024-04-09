@@ -6,11 +6,11 @@
 #include <locale>
 #include <codecvt>
 
-#include<tgbot/tgbot.h>
+#include <tgbot/tgbot.h>
 
 #include<pugixml.hpp>
 
-#include<Randomiser.hpp>
+#include "Randomiser.hpp"
 
 #include"AnekdotParser.hpp"
 
@@ -33,13 +33,13 @@ public:
 	{
 		ToLower(str);
 
-		doc.load_file("data.xml");
-		root = doc.child("root");
+        doc.load_file("data.xml");
+        root = doc.child("root");
 
-		std::string res;
-		
-		if (CheckVariables(str, res))
-			nullptr;
+        std::string res;
+
+        if (CheckVariables(str, res))
+            nullptr;
 		else if (CheckConstants(str, res))
 			nullptr;
 		else if (unsigned int id = CheckFunckWords(str); id)
@@ -125,49 +125,46 @@ private:
 	void GeneretaDefault(std::string& res)
 	{
 		pugi::xml_node defAns = root.child("defaultAnswers");
-		std::cout << "ptr" << &defAns << '\n';
-		unsigned int r = rnd.generate() % defAns.attribute("count").as_uint();
+        unsigned int r = rnd.generate() % defAns.attribute("count").as_uint();
+        pugi::xml_node result;
+        InitChildAt(result, defAns, "text", r);
+        res = result.text().as_string();
+    }
 
-		pugi::xml_node result;
-		InitChildAt(result, defAns, "text", r);
-		res = result.text().as_string();
+    bool HaveAgressive(const std::string &str)
+    {
+        pugi::xml_node agr = root.child("rugan");
+        return HaveInText(str, agr.child("userRugan"));
+    }
+    void AddAgressive(std::string &res)
+    {
+        pugi::xml_node agr = root.child("rugan");
+        pugi::xml_node gr = agr.child("gadalkaRugan");
 
-	}
+        pugi::xml_node resN;
+        InitChildAt(resN, gr, "text", rnd.generate() % gr.attribute("count").as_uint());
 
-	bool HaveAgressive(const std::string& str)
-	{
-		pugi::xml_node agr = root.child("rugan");
-		return HaveInText(str, agr.child("userRugan"));
-	}
-	void AddAgressive(std::string& res)
-	{
-		pugi::xml_node agr = root.child("rugan");
-		pugi::xml_node gr = agr.child("gadalkaRugan");
+        res += std::string(1uLL, ' ') + resN.text().as_string();
+    }
 
-		pugi::xml_node resN;
-		InitChildAt(resN, gr, "text", rnd.generate() % gr.attribute("count").as_uint());
-
-		res += std::string(1uLL, ' ') + resN.text().as_string();
-	}
-
-	bool HaveIzv(const std::string& str)
-	{
-		pugi::xml_node agr = root.child("izv");
-		return HaveInText(str, agr.child("userIzv"));
-	}
-	void SetIzv(std::string& res)
-	{
-		pugi::xml_node agr = root.child("izv");
-		pugi::xml_node gr = agr.child("gadalkaIzv");
+    bool HaveIzv(const std::string &str)
+    {
+        pugi::xml_node agr = root.child("izv");
+        return HaveInText(str, agr.child("userIzv"));
+    }
+    void SetIzv(std::string &res)
+    {
+        pugi::xml_node agr = root.child("izv");
+        pugi::xml_node gr = agr.child("gadalkaIzv");
 
 		pugi::xml_node resN;
 		InitChildAt(resN, gr, "text", rnd.generate() % gr.attribute("count").as_uint());
 
 		res = resN.text().as_string();
-	}
+    }
 
-	unsigned int CheckFunckWords(const std::string& str)
-	{
+    unsigned int CheckFunckWords(const std::string &str)
+    {
 		pugi::xml_node words = root.child("funcWords");
 		for (pugi::xml_node i = words.child("text"); i; i = i.next_sibling("text"))
 		{
@@ -259,22 +256,24 @@ void ConsoleGadalka()
 	while (true)
 	{
 		std::getline(std::cin, s);
-		cout << data.GenerateAnswer(s) << endl;
-	}
+        // cout << data.GenerateAnswer(s) << endl;
+    }
 }
 
 int main()
 {
-	system("chcp 65001 > nul");
-	
-	//ConsoleGadalka();
-	//return 0;
+#ifdef _WIN32
+    system("chcp 65001 > nul");
+#endif
 
-	GadalkaData data;
+    //ConsoleGadalka();
+    //return 0;
 
-	TgBot::Bot bot(TG_API_KEY);
+    GadalkaData data;
 
-	bot.getEvents().onCommand("start", [&bot](TgBot::Message::Ptr message)
+    TgBot::Bot bot(TG_API_KEY);
+
+    bot.getEvents().onCommand("start", [&bot](TgBot::Message::Ptr message)
 		{
 			bot.getApi().sendMessage(message->chat->id, to_utf8(L"Здравствуй, отрак! Я - Великая гадалка! Готова ответить на все твои вопросы! Поздоровайтесь мо мной!"));
 		}
@@ -295,33 +294,27 @@ int main()
 		}
 	);
 
-	bot.getEvents().onAnyMessage([&bot, &data](TgBot::Message::Ptr message)
-		{
-			std::cout << "User wrote: " << message->text << " User ID: " << message->chat->id << '\n';
+    bot.getEvents().onAnyMessage([&bot, &data](TgBot::Message::Ptr message) {
+        // std::cout << "User wrote: " << message->text << " User ID: " << message->chat->id << '\n';
 
-			if (message->text[0] != '/')
-			{
-				std::string result = data.GenerateAnswer(message->text);
-				cout << "Bot wrote: " << result << "\n\n";
-				bot.getApi().sendMessage(message->chat->id, result);
-			}
-		}
-	);
+        if (message->text[0] != '/') {
+            std::string result = data.GenerateAnswer(message->text);
+            // cout << "Bot wrote: " << result << "\n\n";
+            bot.getApi().sendMessage(message->chat->id, result);
+        }
+    });
 
-	try
-	{
-		printf("Bot username: %s\n", bot.getApi().getMe()->username.c_str());
-		TgBot::TgLongPoll longPoll(bot);
+    try {
+        printf("Bot username: %s\n", bot.getApi().getMe()->username.c_str());
+        TgBot::TgLongPoll longPoll(bot);
 		while (true)
 		{
 			printf("Long poll started\n");
 			longPoll.start();
 		}
-	}
-	catch (TgBot::TgException& e)
-	{
-		printf("error: %s\n", e.what());
-	}
+    } catch (TgBot::TgException &e) {
+        printf("error: %s\n", e.what());
+    }
 
-	return 0;
+    return 0;
 }

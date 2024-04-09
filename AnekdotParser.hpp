@@ -1,7 +1,5 @@
 #pragma once
 
-#pragma once
-
 #include<string>
 #include<vector>
 #include<filesystem>
@@ -10,7 +8,7 @@
 #include<pugixml.hpp>
 #include<curl/curl.h>
 
-#include<Randomiser.hpp>
+#include "Randomiser.hpp"
 
 void replaceAll(std::string& str, const char* oldS, const char* newS)
 {
@@ -252,16 +250,15 @@ private:
 class AnedotGenerator
 {
 public:
-
-    void GenerateAtKeyWord(const std::string& key, std::string& res)
+    void GenerateAtKeyWord(const std::string &key, std::string &res)
     {
         std::string url = creator.GenerateAtKeyWord(key, true);
-    
+
         wparser.Parse(url.c_str());
         aparser.Parse(wparser.getBuffer());
-        
+
         Randomiser<unsigned int> rnd;
-        
+
         res = aparser.GetAnekdots()[rnd.generate(0, aparser.GetAnekdots().size() - 1)];
     }
 
