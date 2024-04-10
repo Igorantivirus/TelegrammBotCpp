@@ -63,10 +63,10 @@ public:
         pugi::xml_node resNode;
         std::string res = root.attribute("mainURL").as_string();
 
-        InitChildAt(resNode, root, "page", rnd.generate() % count);
+        InitChildAt(resNode, root, "page", rnd.generate(0, count - 1));
 
         res += std::string("/") + resNode.text().as_string() + "/";
-        const unsigned int rndNum = rnd.generate() % resNode.attribute("sections").as_uint();
+        const unsigned int rndNum = rnd.generate(0, resNode.attribute("sections").as_uint() - 1);
         if (rndNum == 0)
             return res;
         res += std::to_string(rndNum + 1) + "/";
@@ -81,7 +81,7 @@ public:
             if (key.find(i.attribute("key").as_string()) != std::string::npos)
             {
                 res += std::string("/") + i.text().as_string() + "/";
-                const unsigned int rndNum = rnd.generate() % i.attribute("sections").as_uint();
+                const unsigned int rndNum = rnd.generate(0, i.attribute("sections").as_uint() - 1);
                 if (rndNum == 0)
                     return res;
                 res += std::to_string(rndNum + 1) + "/";

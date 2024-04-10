@@ -91,12 +91,12 @@ private:
 		{
 			if (Have(vari.attribute("key").as_string(), str))
 			{
-				unsigned int r = rnd.generate() % vari.attribute("count").as_uint();
+				unsigned int r = rnd.generate(0, vari.attribute("count").as_uint() - 1);
 				pugi::xml_node result;
 				InitChildAt(result, vari, "text", r);
 				res = result.text().as_string();
 				if (result.attribute("special").as_string() == std::string("1"))
-					replace(res, "%R", std::to_string(rnd.generate() % 81 + 20));
+					replace(res, "%R", std::to_string(rnd.generate(20, 100)));
 				return true;
 			}
 		}
@@ -114,7 +114,7 @@ private:
 			if (HaveInText(str, var.child("keys")))
 			{
 				pugi::xml_node resN;
-				InitChildAt(resN, var.child("results"), "text", rnd.generate() % var.attribute("resultCount").as_uint());
+				InitChildAt(resN, var.child("results"), "text", rnd.generate(0, var.attribute("resultCount").as_uint() - 1));
 				res = resN.text().as_string();
 				return true;
 			}
@@ -125,10 +125,12 @@ private:
 	void GeneretaDefault(std::string& res)
 	{
 		pugi::xml_node defAns = root.child("defaultAnswers");
-        unsigned int r = rnd.generate() % defAns.attribute("count").as_uint();
+        unsigned int r = rnd.generate(0, defAns.attribute("count").as_uint() - 1);
         pugi::xml_node result;
         InitChildAt(result, defAns, "text", r);
         res = result.text().as_string();
+		if (result.attribute("special").as_string() == std::string("1"))
+			replace(res, "%R", std::to_string(rnd.generate(20, 100)));
     }
 
     bool HaveAgressive(const std::string &str)
@@ -142,7 +144,7 @@ private:
         pugi::xml_node gr = agr.child("gadalkaRugan");
 
         pugi::xml_node resN;
-        InitChildAt(resN, gr, "text", rnd.generate() % gr.attribute("count").as_uint());
+        InitChildAt(resN, gr, "text", rnd.generate(0, gr.attribute("count").as_uint() - 1));
 
         res += std::string(1uLL, ' ') + resN.text().as_string();
     }
@@ -158,7 +160,7 @@ private:
         pugi::xml_node gr = agr.child("gadalkaIzv");
 
 		pugi::xml_node resN;
-		InitChildAt(resN, gr, "text", rnd.generate() % gr.attribute("count").as_uint());
+		InitChildAt(resN, gr, "text", rnd.generate(0, gr.attribute("count").as_uint() - 1));
 
 		res = resN.text().as_string();
     }
@@ -256,7 +258,7 @@ void ConsoleGadalka()
 	while (true)
 	{
 		std::getline(std::cin, s);
-        // cout << data.GenerateAnswer(s) << endl;
+        cout << data.GenerateAnswer(s) << endl;
     }
 }
 

@@ -1,0 +1,19 @@
+#Visual studio
+.vs
+TelegrammBotCpp
+x64
+TelegrammBotCpp.vcxproj
+TelegrammBotCpp.vcxproj.filters
+TelegrammBotCpp.vcxproj.user
+TelegrammBotCpp.sln
+
+#lib
+libcurl-d.dll
+zlibd1.dll
+
+#ProjectFiles
+MyApiKey.hpp
+downloaded_pages
+
+# other
+out

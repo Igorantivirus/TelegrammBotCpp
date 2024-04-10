@@ -103,12 +103,6 @@
 			<text special="1">Да я не знаю, сколько, давай за %R и разойдёмся.</text>
 		</variantReplic>
 
-		<variantReplic key="рецепт" count="3">
-			<text>Бери слоёное тесто, сыр, ветцину, всё пихай в это тесто, в духовку и готово! Слойка с ветчиной и сыром!</text>
-			<text>Укроп, рис, приправа для плова, всё в казан и будет плов!</text>
-			<text>Стань мальчиком из физмат класса, помоги девочкам из девятого, они тебе шоколадку принесут. На день голодным не будешь.</text>
-		</variantReplic>
-
 	</constants>
 
 	<variants>
@@ -254,7 +248,7 @@
 		</variant>
 
 	</variants>
-	
+
 	<defaultAnswers count="65">
 		<text>Да.</text>
 		<text>Возможно.</text>
@@ -337,6 +331,8 @@
 			<text>идиот</text>
 			<text>падла</text>
 			<text>изморось</text>
+			<text>паскуда</text>
+			<text>гадость</text>
 		</userRugan>
 
 		<gadalkaRugan count="24">
