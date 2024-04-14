@@ -308,8 +308,8 @@ int main()
     system("chcp 65001 > nul");
 #endif
 
-    ConsoleGadalka();
-    return 0;
+    //ConsoleGadalka();
+    //return 0;
 
     GadalkaData data;
 
