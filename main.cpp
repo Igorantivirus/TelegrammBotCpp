@@ -1,26 +1,45 @@
 ﻿#define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
 
-#include<iostream>
-#include<string>
-#include<cstring>
+#include <iostream>
+#include <string>
+#include <cstring>
 #include <locale>
 #include <codecvt>
+#include <complex>
 
 #include <tgbot/tgbot.h>
-
-#include<pugixml.hpp>
+#include <pugixml.hpp>
 
 #include "Randomiser.hpp"
+#include "AnekdotParser.hpp"
+#include "MyApiKey.hpp"
 
-#include"AnekdotParser.hpp"
-
-#include"MyApiKey.hpp"
-
-using namespace std;
+#include <MathParse/MathPars.hpp>
 
 std::string to_utf8(const std::wstring& str) {
 	std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
 	return converter.to_bytes(str);
+}
+
+std::string toFixedString(const long double x)
+{
+	std::string s = std::to_string(x);
+	if (s.find('.') == std::string::npos)
+		return s;
+	while (s.back() == '0')
+		s.pop_back();
+	if (s.back() == '.')
+		s.pop_back();
+	return s;
+}
+std::string complexToString(const std::complex<long double>& z)
+{
+	if (!z.imag())
+		return toFixedString(z.real());
+	else if (!z.real())
+		return toFixedString(z.imag()) + 'i';
+	else
+		return toFixedString(z.real()) + (z.imag() > 0 ? '+' : '-') + toFixedString(std::abs(z.imag())) + 'i';
 }
 
 class GadalkaData
@@ -38,15 +57,15 @@ public:
 
         std::string res;
 
-        if (CheckVariables(str, res))
-            nullptr;
-		else if (CheckConstants(str, res))
-			nullptr;
-		else if (unsigned int id = CheckFunckWords(str); id)
+		if (unsigned int id = CheckFunckWords(str); id)
 		{
 			GenerateAtFuncWord(str, res, id);
 			return res;
 		}
+        else if (CheckVariables(str, res))
+            nullptr;
+		else if (CheckConstants(str, res))
+			nullptr;
 		else
 			GeneretaDefault(res);
 
@@ -182,6 +201,27 @@ private:
 	{
 		if (id == 1)
 			generator.GenerateAtKeyWord(str, res);
+		else if (id == 2)
+		{
+			if (size_t ind = str.rfind(' '); ind != std::string::npos)
+			{
+				try
+				{
+					expr::Parser pars;
+					res = complexToString(pars.parse(str.substr(++ind, str.size() - ind)).getProcessingResult().getValue());
+				}
+				catch (const expr::ParseException& e)
+				{
+					res = e.what();
+				}
+				catch (...)
+				{
+					res = to_utf8(L"Вижу, вижу! Ввели вы не математику, а какую-то чушь! За это вам порча на 15 минут!");
+				}
+			}
+			else
+				res = to_utf8(L"Попросиле посчитать, а сам пример не дали! Вот вы хорошо придумали!");
+		}
 	}
 
 private:
@@ -258,7 +298,7 @@ void ConsoleGadalka()
 	while (true)
 	{
 		std::getline(std::cin, s);
-        cout << data.GenerateAnswer(s) << endl;
+        std::cout << data.GenerateAnswer(s) << std::endl;
     }
 }
 
@@ -268,8 +308,8 @@ int main()
     system("chcp 65001 > nul");
 #endif
 
-    //ConsoleGadalka();
-    //return 0;
+    ConsoleGadalka();
+    return 0;
 
     GadalkaData data;
 
