@@ -1,6 +1,7 @@
 #pragma once
 
 #include"ResponseGenerator.hpp"
+#include"UserInfoWorker.hpp"
 #include"MyApiKey.hpp"
 
 #include <tgbot/tgbot.h>
@@ -42,26 +43,26 @@ private:
 
 	TgBot::Bot bot;
 
+	UserWorker worker;
+
 private:
 
 	void InitCommans()
 	{
 		bot.getEvents().onCommand("start", [this](TgBot::Message::Ptr message)
 			{
+				worker.AddInfo(message->chat);
 				bot.getApi().sendMessage(message->chat->id, to_utf8(L"Здравствуй, отрак! Я - Великая гадалка! Готова ответить на все твои вопросы! Поздоровайтесь мо мной!"));
 			}
 		);
-		/*bot.getEvents().onCommand("info", [this](TgBot::Message::Ptr message)
+		bot.getEvents().onCommand("usersInfo", [this](TgBot::Message::Ptr message)
 			{
-				std::string s =
+				std::cout << bot.getApi().getMe() << '\n';
+				std::cout << bot.getApi().getMe()->id << '\n';
 
-					message->chat->firstName + " " +
-					message->chat->lastName + " " +
-					message->chat->username;
-
-				bot.getApi().sendMessage(message->chat->id, s);
+				bot.getApi().sendMessage(message->chat->id, worker.GetAllUsers());
 			}
-		);*/
+		);
 		bot.getEvents().onCommand("update", [this](TgBot::Message::Ptr message)
 			{
 				data.Update();

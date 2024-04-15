@@ -1,6 +1,6 @@
 ﻿#define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
 
-#include"Bot.hpp"
+#include"TalkingBot.hpp"
 
 void ConsoleGadalka()
 {

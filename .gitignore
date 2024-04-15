@@ -14,6 +14,7 @@ zlibd1.dll
 #ProjectFiles
 MyApiKey.hpp
 downloaded_pages
+UserDB.xml
 
 # other
 out
