@@ -57,10 +57,12 @@ private:
 		);
 		bot.getEvents().onCommand("usersInfo", [this](TgBot::Message::Ptr message)
 			{
-				std::cout << bot.getApi().getMe() << '\n';
-				std::cout << bot.getApi().getMe()->id << '\n';
-
 				bot.getApi().sendMessage(message->chat->id, worker.GetAllUsers());
+			}
+		);
+		bot.getEvents().onCommand("adminInfo", [this](TgBot::Message::Ptr message)
+			{
+				bot.getApi().sendMessage(message->chat->id, worker.GetAllAdmins());
 			}
 		);
 		bot.getEvents().onCommand("update", [this](TgBot::Message::Ptr message)
@@ -72,6 +74,24 @@ private:
 		bot.getEvents().onCommand("help", [this](TgBot::Message::Ptr message)
 			{
 				bot.getApi().sendMessage(message->chat->id, to_utf8(L"Не говори со мной на бесовском языке! Лучше спроси, что я могу, и я дам ответ!"));
+			}
+		);
+		bot.getEvents().onCommand("registr", [this](TgBot::Message::Ptr message)
+			{
+				size_t ind = message->text.rfind(' ');
+				if (ind == std::string::npos)
+				{
+					bot.getApi().sendMessage(message->chat->id, to_utf8(L"Не знаете, что делаете - так и не суйтесь, куда не надо!"));
+					return;
+				}
+				ind++;
+				if (message->text.substr(ind) == TG_API_KEY)
+				{
+					worker.AddAmdin(message->chat);
+					bot.getApi().sendMessage(message->chat->id, to_utf8(L"Здравствуй, создатель! С возвращением!"));
+				}
+				else
+					bot.getApi().sendMessage(message->chat->id, to_utf8(L"Не знаете, что делаете - так и не суйтесь, куда не надо!"));
 			}
 		);
 		bot.getEvents().onCommand("boroda", [this](TgBot::Message::Ptr message)
