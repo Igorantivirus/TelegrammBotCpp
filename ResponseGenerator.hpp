@@ -9,14 +9,14 @@ class GadalkaData
 {
 public:
 	GadalkaData()
-	{}
+	{
+		doc.load_file("data.xml");
+		root = doc.child("root");
+	}
 
 	std::string GenerateAnswer(std::string str)
 	{
 		ToLower(str);
-
-		doc.load_file("data.xml");
-		root = doc.child("root");
 
 		std::string res;
 
@@ -55,7 +55,11 @@ public:
 		return agresiveMode;
 	}
 
-	void Update() {}
+	void Update()
+	{
+		doc.load_file("data.xml");
+		root = doc.child("root");
+	}
 
 private:
 	pugi::xml_document doc;

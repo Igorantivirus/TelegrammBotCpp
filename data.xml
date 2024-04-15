@@ -129,7 +129,7 @@
 
 		<variant resultCount="1">
 			<keys>
-				<text>чем крым</text>
+				<text>чей крым</text>
 				<text>крым чей</text>
 				<text>пренадлежит крым</text>
 			</keys>
@@ -198,7 +198,7 @@
 			</results>
 		</variant>
 
-		<variant resultCount="2">
+		<variant resultCount="3">
 			<keys>
 				<text>привет</text>
 				<text>здрав</text>
@@ -206,6 +206,7 @@
 			<results>
 				<text>Здравствуй, дитя, готова я работать с тобой!</text>
 				<text>И вам привет! Что делать-то будем?</text>
+				<text>Здрасте, хлопче. Готова я работать с вами.</text>
 			</results>
 		</variant>
 

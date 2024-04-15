@@ -23,7 +23,7 @@ int main()
 
     //ConsoleGadalka();
     
-    TalkingBot gadalka(TG_API_KEY);
+    TalkingBot gadalka(TG_API_KEY_TEST);
     gadalka.Run();
 
     return 0;
