@@ -14,7 +14,7 @@
 #include "AnekdotParser.hpp"
 #include "MyApiKey.hpp"
 
-#include <MathParse/MathPars.hpp>
+#include <MathParse/MathParse.hpp>
 
 std::string to_utf8(const std::wstring& str) {
 	std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
@@ -216,7 +216,7 @@ private:
 				}
 				catch (...)
 				{
-					res = to_utf8(L"Вижу, вижу! Ввели вы не математику, а какую-то чушь! За это вам порча на 15 минут!");
+					res = to_utf8(L"Вижу, вижу! Ввели вы не математику, а какую-то чушь, чтобы запутать меня! За это вам порча на 15 минут!");
 				}
 			}
 			else
