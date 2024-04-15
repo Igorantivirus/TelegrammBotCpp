@@ -51,12 +51,12 @@ public:
     char generate(const char minValue, const char maxValue)
     {
         dist.param(typename decltype(dist)::param_type(minValue, maxValue));
-        return dist(rng);
+        static_cast<char>(dist(rng));
     }
     char generate()
     {
         dist.param(typename decltype(dist)::param_type(MinValue(), MaxValue()));
-        return dist(rng);
+        static_cast<char>(dist(rng));
     }
 
 
@@ -90,12 +90,12 @@ public:
     unsigned char generate(const unsigned char minValue, const unsigned char maxValue)
     {
         dist.param(typename decltype(dist)::param_type(minValue, maxValue));
-        return dist(rng);
+        return static_cast<unsigned char>(dist(rng));
     }
     unsigned char generate()
     {
         dist.param(typename decltype(dist)::param_type(MinValue(), MaxValue()));
-        return dist(rng);
+        static_cast<unsigned char>(dist(rng));
     }
 
 
@@ -128,7 +128,7 @@ public:
 
     bool generate()
     {
-        return dist(rng);
+        static_cast<bool>(dist(rng));
     }
 
     void setSeed(unsigned long long seed)
@@ -161,12 +161,12 @@ public:
     float generate(const float minValue, const float maxValue)
     {
         dist.param(typename decltype(dist)::param_type(minValue, maxValue));
-        return dist(rng);
+        return static_cast<float>(dist(rng));
     }
     float generate()
     {
         dist.param(typename decltype(dist)::param_type(MinValue(), MaxValue()));
-        return dist(rng);
+        return static_cast<float>(dist(rng));
     }
 
 
@@ -200,12 +200,12 @@ public:
     double generate(const double minValue, const double maxValue)
     {
         dist.param(typename decltype(dist)::param_type(minValue, maxValue));
-        return dist(rng);
+        return static_cast<double>(dist(rng));
     }
     double generate()
     {
         dist.param(typename decltype(dist)::param_type(MinValue(), MaxValue()));
-        return dist(rng);
+        return static_cast<double>(dist(rng));
     }
 
 
@@ -239,12 +239,12 @@ public:
     long double generate(const long double minValue, const long double maxValue)
     {
         dist.param(typename decltype(dist)::param_type(minValue, maxValue));
-        return dist(rng);
+        return static_cast<long double>(dist(rng));
     }
     long double generate()
     {
         dist.param(typename decltype(dist)::param_type(MinValue(), MaxValue()));
-        return dist(rng);
+        return static_cast<long double>(dist(rng));
     }
 
 
