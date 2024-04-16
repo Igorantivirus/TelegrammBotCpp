@@ -48,7 +48,7 @@ private:
 	{
 		bot.getEvents().onCommand("start", [this](TgBot::Message::Ptr message)
 			{
-				bot.getApi().sendMessage(message->chat->id, to_utf8(L"Здравствуй, отрак! Я - Великая гадалка! Готова ответить на все твои вопросы! Поздоровайтесь мо мной!"));
+				bot.getApi().sendMessage(message->chat->id, to_utf8(L"Р—РґСЂР°РІСЃС‚РІСѓР№, РѕС‚СЂР°Рє! РЇ - Р’РµР»РёРєР°СЏ РіР°РґР°Р»РєР°! Р“РѕС‚РѕРІР° РѕС‚РІРµС‚РёС‚СЊ РЅР° РІСЃРµ С‚РІРѕРё РІРѕРїСЂРѕСЃС‹! РџРѕР·РґРѕСЂРѕРІР°Р№С‚РµСЃСЊ РјРѕ РјРЅРѕР№!"));
 			}
 		);
 		/*bot.getEvents().onCommand("info", [this](TgBot::Message::Ptr message)
@@ -65,21 +65,21 @@ private:
 		bot.getEvents().onCommand("update", [this](TgBot::Message::Ptr message)
 			{
 				data.Update();
-				bot.getApi().sendMessage(message->chat->id, to_utf8(L"Я обновила словарный запас! Готова к дальнейшей работе!"));
+				bot.getApi().sendMessage(message->chat->id, to_utf8(L"РЇ РѕР±РЅРѕРІРёР»Р° СЃР»РѕРІР°СЂРЅС‹Р№ Р·Р°РїР°СЃ! Р“РѕС‚РѕРІР° Рє РґР°Р»СЊРЅРµР№С€РµР№ СЂР°Р±РѕС‚Рµ!"));
 			}
 		);
 		bot.getEvents().onCommand("help", [this](TgBot::Message::Ptr message)
 			{
-				bot.getApi().sendMessage(message->chat->id, to_utf8(L"Не говори со мной на бесовском языке! Лучше спроси, что я могу, и я дам ответ!"));
+				bot.getApi().sendMessage(message->chat->id, to_utf8(L"РќРµ РіРѕРІРѕСЂРё СЃРѕ РјРЅРѕР№ РЅР° Р±РµСЃРѕРІСЃРєРѕРј СЏР·С‹РєРµ! Р›СѓС‡С€Рµ СЃРїСЂРѕСЃРё, С‡С‚Рѕ СЏ РјРѕРіСѓ, Рё СЏ РґР°Рј РѕС‚РІРµС‚!"));
 			}
 		);
 		bot.getEvents().onCommand("boroda", [this](TgBot::Message::Ptr message)
 			{
 				data.AgressiveMode() = !data.AgressiveMode();
 				if (data.AgressiveMode())
-					bot.getApi().sendMessage(message->chat->id, to_utf8(L"Поняла вас, становлюсь злой!"));
+					bot.getApi().sendMessage(message->chat->id, to_utf8(L"РџРѕРЅСЏР»Р° РІР°СЃ, СЃС‚Р°РЅРѕРІР»СЋСЃСЊ Р·Р»РѕР№!"));
 				else
-					bot.getApi().sendMessage(message->chat->id, to_utf8(L"Поняла вас, становлюсь доброй!"));
+					bot.getApi().sendMessage(message->chat->id, to_utf8(L"РџРѕРЅСЏР»Р° РІР°СЃ, СЃС‚Р°РЅРѕРІР»СЋСЃСЊ РґРѕР±СЂРѕР№!"));
 			}
 		);
 	}

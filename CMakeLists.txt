@@ -14,7 +14,12 @@ FetchContent_Declare(
   GIT_REPOSITORY https://github.com/zeux/pugixml
   GIT_TAG        origin/master
 )
-FetchContent_MakeAvailable(pugixml)
+FetchContent_Declare(
+  libpme
+  GIT_REPOSITORY https://github.com/Igorantivirus/Parse-math-expression
+  GIT_TAG        origin/complexNums
+)
+FetchContent_MakeAvailable(pugixml libpme)
 
 find_package(Threads REQUIRED)
 find_package(OpenSSL REQUIRED)
@@ -37,6 +42,9 @@ include_directories(${CURL_INCLUDE_DIR})
 target_link_libraries(TelegrammBotCpp ${CURL_LIBRARIES})
 
 target_link_libraries(TelegrammBotCpp pugixml)
+
+#target_link_libraries(TelegrammBotCpp libpme)
+target_include_directories(TelegrammBotCpp PRIVATE ${libpme_SOURCE_DIR})
 
 target_link_libraries(TelegrammBotCpp /usr/local/lib/libTgBot.a ${CMAKE_THREAD_LIBS_INIT} ${OPENSSL_LIBRARIES} ${Boost_LIBRARIES} ${CURL_LIBRARIES})
 
