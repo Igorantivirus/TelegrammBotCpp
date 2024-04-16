@@ -29,6 +29,19 @@ public:
 		return GetFromArray("admins");
 	}
 
+	bool IsAdmin(const TgBot::Chat::Ptr& uP)
+	{
+		doc.load_file(USER_INFO_DB_FILE);
+		pugi::xml_node root = doc.child("root");
+		pugi::xml_node users = root.child("admins");
+		if (HaveIDUser(users, uP->id))
+		{
+			doc.reset();
+			return true;
+		}
+		doc.reset();
+		return false;
+	}
 
 private:
 	pugi::xml_document doc;

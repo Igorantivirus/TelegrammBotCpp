@@ -55,22 +55,6 @@ private:
 				bot.getApi().sendMessage(message->chat->id, to_utf8(L"Здравствуй, отрак! Я - Великая гадалка! Готова ответить на все твои вопросы! Поздоровайтесь мо мной!"));
 			}
 		);
-		bot.getEvents().onCommand("usersInfo", [this](TgBot::Message::Ptr message)
-			{
-				bot.getApi().sendMessage(message->chat->id, worker.GetAllUsers());
-			}
-		);
-		bot.getEvents().onCommand("adminInfo", [this](TgBot::Message::Ptr message)
-			{
-				bot.getApi().sendMessage(message->chat->id, worker.GetAllAdmins());
-			}
-		);
-		bot.getEvents().onCommand("update", [this](TgBot::Message::Ptr message)
-			{
-				data.Update();
-				bot.getApi().sendMessage(message->chat->id, to_utf8(L"Я обновила словарный запас! Готова к дальнейшей работе!"));
-			}
-		);
 		bot.getEvents().onCommand("help", [this](TgBot::Message::Ptr message)
 			{
 				bot.getApi().sendMessage(message->chat->id, to_utf8(L"Не говори со мной на бесовском языке! Лучше спроси, что я могу, и я дам ответ!"));
@@ -94,8 +78,45 @@ private:
 					bot.getApi().sendMessage(message->chat->id, to_utf8(L"Не знаете, что делаете - так и не суйтесь, куда не надо!"));
 			}
 		);
+
+		bot.getEvents().onCommand("usersInfo", [this](TgBot::Message::Ptr message)
+			{
+				if (!worker.IsAdmin(message->chat))
+				{
+					bot.getApi().sendMessage(message->chat->id, to_utf8(L"Не наглейте!"));
+					return;
+				}
+				bot.getApi().sendMessage(message->chat->id, worker.GetAllUsers());
+			}
+		);
+		bot.getEvents().onCommand("adminInfo", [this](TgBot::Message::Ptr message)
+			{
+				if (!worker.IsAdmin(message->chat))
+				{
+					bot.getApi().sendMessage(message->chat->id, to_utf8(L"Не наглейте!"));
+					return;
+				}
+				bot.getApi().sendMessage(message->chat->id, worker.GetAllAdmins());
+			}
+		);
+		bot.getEvents().onCommand("update", [this](TgBot::Message::Ptr message)
+			{
+				if (!worker.IsAdmin(message->chat))
+				{
+					bot.getApi().sendMessage(message->chat->id, to_utf8(L"Не наглейте!"));
+					return;
+				}
+				data.Update();
+				bot.getApi().sendMessage(message->chat->id, to_utf8(L"Я обновила словарный запас! Готова к дальнейшей работе!"));
+			}
+		);
 		bot.getEvents().onCommand("boroda", [this](TgBot::Message::Ptr message)
 			{
+				if (!worker.IsAdmin(message->chat))
+				{
+					bot.getApi().sendMessage(message->chat->id, to_utf8(L"Не наглейте!"));
+					return;
+				}
 				data.AgressiveMode() = !data.AgressiveMode();
 				if (data.AgressiveMode())
 					bot.getApi().sendMessage(message->chat->id, to_utf8(L"Поняла вас, становлюсь злой!"));
