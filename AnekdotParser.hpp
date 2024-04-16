@@ -10,42 +10,10 @@
 
 #include "Randomiser.hpp"
 
-void replaceAll(std::string& str, const char* oldS, const char* newS)
-{
-    const size_t s1 = std::strlen(oldS);
-    const size_t s2 = std::strlen(newS);
-    size_t ind;
-    size_t last = 0;
-    while ((ind = str.find(oldS, last)) != std::string::npos)
-    {
-        str.replace(ind, s1, newS);
-        last = ind + s2;
-    }
-}
-void replaceAll(std::string& str, const char oldS, const char newS)
-{
-    for (auto& i : str)
-        if (i == oldS)
-            i = newS;
-}
-
 size_t writeCallback(void* contents, size_t size, size_t nmemb, std::string* buffer)
 {
     buffer->append((char*)contents, size * nmemb);
     return size * nmemb;
-}
-
-std::string extractText(const pugi::xml_node& node)
-{
-    std::string text;
-    for (pugi::xml_node child : node.children())
-    {
-        if (child.type() == pugi::node_pcdata)
-            text += child.text().get();
-        else
-            text += extractText(child);
-    }
-    return text;
 }
 
 class AnekdotURLCreator
@@ -140,8 +108,8 @@ public:
     {
         buffer.clear();
         std::string myfName = fName;
-        replaceAll(myfName, '/', '_');
-        replaceAll(myfName, ':', '_');
+        mySTRutils::replaceAll(myfName, '/', '_');
+        mySTRutils::replaceAll(myfName, ':', '_');
         myfName = "downloaded_pages\\" + myfName + ".html";
 
         if (std::ifstream in(myfName); in.good())
@@ -209,8 +177,6 @@ public:
 private:
     std::vector<std::string> anekdots;
 
-
-
     bool InitArray(const std::string& str, const bool deleteNoCensure)
     {
         pugi::xml_document doc;
@@ -223,7 +189,7 @@ private:
         std::string anek;
         for (const auto& i : root.children())
         {
-            anek = extractText(i.child("div").child("div").child("p"));
+            anek = myXMLutils::extractText(i.child("div").child("div").child("p"));
             if (!(deleteNoCensure && (anek.find('@') != std::string::npos || anek.find('*') != std::string::npos)))
                 anekdots.push_back(anek);
         }
@@ -241,7 +207,7 @@ private:
             return false;
 
         xmlBuf = buffer.substr(ind1, ind2 - ind1);
-        replaceAll(xmlBuf, "<br>", "\n");
+        mySTRutils::replaceAll(xmlBuf, "<br>", "\n");
         return true;
     }
 
