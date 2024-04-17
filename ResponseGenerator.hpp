@@ -182,9 +182,9 @@ private:
 				}
 				return true;
 			}
-			else
-				res = to_utf8(L"Попросили посчитать, а сам пример не дали! Вот вы хорошо придумали!");
+			return false;
 		}
+		return false;
 	}
 
 private:
