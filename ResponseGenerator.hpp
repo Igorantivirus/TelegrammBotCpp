@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include"BotUtils.hpp"
 
@@ -20,11 +20,8 @@ public:
 
 		std::string res;
 
-		if (unsigned int id = CheckFunckWords(str); id)
-		{
-			GenerateAtFuncWord(str, res, id);
+		if (unsigned int id = CheckFunckWords(str); id && GenerateAtFuncWord(str, res, id))
 			return res;
-		}
 		else if (CheckVariables(str, res))
 			nullptr;
 		else if (CheckConstants(str, res))
@@ -166,10 +163,10 @@ private:
 		return 0;
 	}
 
-	void GenerateAtFuncWord(const std::string& str, std::string& res, const unsigned int id)
+	bool GenerateAtFuncWord(const std::string& str, std::string& res, const unsigned int id)
 	{
 		if (id == 1)
-			generator.GenerateAtKeyWord(str, res);
+			return generator.GenerateAtKeyWord(str, res), true;
 		else if (id == 2)
 		{
 			if (size_t ind = str.rfind(' '); ind != std::string::npos)
@@ -179,17 +176,13 @@ private:
 					expr::Parser pars;
 					res = complexToString(pars.parse(str.substr(++ind, str.size() - ind)).getProcessingResult().getValue());
 				}
-				catch (const expr::ParseException& e)
-				{
-					res = e.what();
-				}
 				catch (...)
 				{
 					res = to_utf8(L"Вижу, вижу! Ввели вы не математику, а какую-то чушь, чтобы запутать меня! За это вам порча на 15 минут!");
 				}
+				return true;
 			}
-			else
-				res = to_utf8(L"Попросили посчитать, а сам пример не дали! Вот вы хорошо придумали!");
+			return false;
 		}
 	}
 

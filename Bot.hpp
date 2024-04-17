@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include"ResponseGenerator.hpp"
 #include"MyApiKey.hpp"
@@ -51,17 +51,6 @@ private:
 				bot.getApi().sendMessage(message->chat->id, to_utf8(L"Здравствуй, отрак! Я - Великая гадалка! Готова ответить на все твои вопросы! Поздоровайтесь мо мной!"));
 			}
 		);
-		/*bot.getEvents().onCommand("info", [this](TgBot::Message::Ptr message)
-			{
-				std::string s =
-
-					message->chat->firstName + " " +
-					message->chat->lastName + " " +
-					message->chat->username;
-
-				bot.getApi().sendMessage(message->chat->id, s);
-			}
-		);*/
 		bot.getEvents().onCommand("update", [this](TgBot::Message::Ptr message)
 			{
 				data.Update();
@@ -91,9 +80,18 @@ private:
 			// std::cout << "User wrote: " << message->text << " User ID: " << message->chat->id << '\n';
 			if (message->text[0] != '/')
 			{
-				std::string result = data.GenerateAnswer(message->text);
-				// cout << "Bot wrote: " << result << "\n\n";
-				bot.getApi().sendMessage(message->chat->id, result);
+				std::string result;
+				try
+				{
+					result = data.GenerateAnswer(message->text);
+					// cout << "Bot wrote: " << result << "\n\n";
+					bot.getApi().sendMessage(message->chat->id, result);
+				}
+				catch (...)
+				{
+					bot.getApi().sendMessage(message->chat->id, to_utf8(L"Ошибка!"));
+					std::cout << "Error: " << result << '\n';
+				}
 			}
 		});
 	}
