@@ -3,6 +3,13 @@
 #include <locale>
 #include <codecvt>
 #include <complex>
+#include <fstream>
+
+void existOrCreateFile(const char* fName)
+{
+	std::ofstream file(fName, std::ios::app);
+	file.close();
+}
 
 std::string to_utf8(const std::wstring& str) {
 	std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
