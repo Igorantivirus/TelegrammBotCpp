@@ -11,7 +11,17 @@
 class UserWorker
 {
 public:
-	UserWorker() {}
+	UserWorker()
+	{
+		if (myFILEutils::isExist(USER_INFO_DB_FILE))
+		{
+			pugi::xml_node root = doc.append_child("root");
+			root.append_child("admins");
+			root.append_child("users");
+			doc.save_file(USER_INFO_DB_FILE);
+			doc.reset();
+		}
+	}
 
 	void AddUser(const TgBot::Chat::Ptr& uP)
 	{

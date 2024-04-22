@@ -5,10 +5,24 @@
 #include <complex>
 #include <vector>
 #include <sstream>
+#include <fstream>
 
 #include<pugixml.hpp>
 
 #define forXML(node, chr) for(pugi::xml_node inode = node.child(chr);inode;inode = inode.next_sibling(chr))
+
+namespace myFILEutils
+{
+	bool isExist(const char* fName)
+	{
+		std::ifstream in(fName);
+		bool res = false;
+		if (in.is_open())
+			res = true;
+		in.close();
+		return res;
+	}
+}
 
 namespace myXMLutils
 {

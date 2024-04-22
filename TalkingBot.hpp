@@ -51,16 +51,26 @@ private:
 	{
 		bot.getEvents().onAnyMessage([this](TgBot::Message::Ptr message)
 		{
+			std::string resut;
 			// std::cout << "User wrote: " << message->text << " User ID: " << message->chat->id << '\n';
-			if (message->text[0] != '/')
+			try
 			{
-				std::string result = data.GenerateAnswer(message->text);
-				// cout << "Bot wrote: " << result << "\n\n";
-				bot.getApi().sendMessage(message->chat->id, result);
+				if (message->text[0] != '/')
+				{
+					resut = data.GenerateAnswer(message->text);
+					bot.getApi().sendMessage(message->chat->id, resut);
+
+					// cout << "Bot wrote: " << result << "\n\n";
+				}
+				else
+				{
+					bot.getApi().sendMessage(message->chat->id, comm.GetResponse(message->text, message->chat));
+				}
 			}
-			else
+			catch (...)
 			{
-				bot.getApi().sendMessage(message->chat->id, comm.GetResponse(message->text, message->chat));
+				bot.getApi().sendMessage(message->chat->id, mySTRutils::to_utf8(L"Ошибка!"));
+				std::cout << "Error: " << resut << '\n';
 			}
 		});
 	}
