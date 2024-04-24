@@ -34,6 +34,8 @@ endif()
 add_executable(TelegrammBotCpp
     main.cpp
     AnekdotParser.hpp
+    BotResponser.hpp
+    BotUtils.hpp
     MyApiKey.hpp
     Randomiser.hpp
 )
@@ -49,4 +51,6 @@ target_include_directories(TelegrammBotCpp PRIVATE ${libpme_SOURCE_DIR})
 target_link_libraries(TelegrammBotCpp /usr/local/lib/libTgBot.a ${CMAKE_THREAD_LIBS_INIT} ${OPENSSL_LIBRARIES} ${Boost_LIBRARIES} ${CURL_LIBRARIES})
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/PagesData.xml ${CMAKE_BINARY_DIR}/bin/PagesData.xml COPYONLY)
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/data.xml ${CMAKE_BINARY_DIR}/bin/data.xml COPYONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/ArgessiveArray.xml ${CMAKE_BINARY_DIR}/bin/ArgessiveArray.xml COPYONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/ResponseData.xml ${CMAKE_BINARY_DIR}/bin/ResponseData.xml COPYONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/UsserDB.xml ${CMAKE_BINARY_DIR}/bin/UsserDB.xml COPYONLY)
