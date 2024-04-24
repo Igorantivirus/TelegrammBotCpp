@@ -415,6 +415,8 @@ private://emotions
 class InputProcessor
 {
 public:
+	InputProcessor(const std::string& p) : pass(p)
+	{}
 
 	std::string Processing(const std::string& str, const TgBot::Message::Ptr& message)
 	{
@@ -439,6 +441,8 @@ private:
 	UserDBWorker usersInfo;
 
 	Responser responser;
+
+	const std::string pass;
 
 private://Command
 
@@ -549,7 +553,7 @@ private://Command
 	{
 		if (tkns.size() < 2)
 			return to_utf8(L"Мало аргументов!");
-		if (tkns[1] == TG_API_KEY)
+		if (tkns[1] == pass)
 		{
 			usersInfo.AddAdmin(message->from->id);
 			return MySTRutils::to_utf8(L"С возвращением, Создатель!");

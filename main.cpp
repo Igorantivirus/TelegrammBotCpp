@@ -1,23 +1,10 @@
 ﻿#define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
 
-#include"Bot.hpp"
+#include"MyApiKey.hpp"
 
 #include"BotResponser.hpp"
 
-void ConsoleGadalka()
-{
-	GadalkaData data;
-
-	std::string s;
-
-	while (true)
-	{
-		std::getline(std::cin, s);
-        std::cout << data.GenerateAnswer(s) << std::endl;
-    }
-}
-
-void COnsoleGadalka2()
+void COnsoleGadalka()
 {
     Responser resp;
 
@@ -30,16 +17,13 @@ void COnsoleGadalka2()
         std::getline(std::cin, s);
         std::cout << resp.GetAnswer(s, agr) << std::endl;
     }
-
-
-
 }
 
 
 class GadalkaBot
 {
 public:
-    GadalkaBot(const char* key) : bot(key)
+    GadalkaBot(const char* key) : bot(key), processor(TG_API_KEY)
     {
         InitResponses();
     }
@@ -101,13 +85,11 @@ int main()
 
     
 
-    //COnsoleGadalka2();
+    //COnsoleGadalka();
     
     GadalkaBot bot(TG_API_KEY_TEST);
     bot.Run();
 
-    //TalkingBot gadalka(TG_API_KEY);
-    //gadalka.Run();
 
     return 0;
 }
