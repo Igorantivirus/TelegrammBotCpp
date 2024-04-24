@@ -13,7 +13,7 @@
 
 #include"AnekdotParser.hpp"
 #ifdef _WIN32
-#include<MathParse/MathParse.hpp>
+#include <MathParse/MathParse.hpp>
 #else
 #include<MathParse.hpp>
 #endif
@@ -247,24 +247,23 @@ public:
 	{
 		MySTRutils::ToLower(str);
 		std::string res;
-	
-		if (InitAtFuncWords(str, res))
-			return res;
 
-		if(!InitAtSpecial(str, res))
-			InitAtDefault(res);
+        if (InitAtFuncWords(str, res))
+            return res;
 
-		ProcessEmot(str, res, agr);
+        if (!InitAtSpecial(str, res))
+            InitAtDefault(res);
 
-		return res;
-	}
+        ProcessEmot(str, res, agr);
 
+        return res;
+    }
 
 private:
-	pugi::xml_document doc;
-	pugi::xml_node root;
+    pugi::xml_document doc;
+    pugi::xml_node root;
 
-	pugi::xml_node specialWords;
+    pugi::xml_node specialWords;
 	pugi::xml_node defaultWords;
 
 	pugi::xml_node funcWords;
@@ -461,13 +460,13 @@ public:
 		if (str[0] == '/')
 			return CommandProcessor(str, message);
 
-		bool agr = chatsInfo.IsAgressive(message->chat->id);
-		bool agrVal = agr;
-		std::string res = responser.GetAnswer(str, agrVal);
-		if (agr != agrVal)
-			chatsInfo.ReplaceAgressive(message->chat->id);
-		return res;
-	}
+        bool agr = chatsInfo.IsAgressive(message->chat->id);
+        bool agrVal = agr;
+        std::string res = responser.GetAnswer(str, agrVal);
+        if (agr != agrVal)
+            chatsInfo.ReplaceAgressive(message->chat->id);
+        return res;
+    }
 
 private:
 
