@@ -15,5 +15,8 @@ zlibd1.dll
 MyApiKey.hpp
 downloaded_pages
 
+#xml files
+UsserDB.xml
+
 # other
 out
