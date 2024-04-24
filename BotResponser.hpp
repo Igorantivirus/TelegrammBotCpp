@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 
 #include<string>
 #include<unordered_map>
@@ -332,7 +332,7 @@ private:
 				}
 				catch (...)
 				{
-					res = to_utf8(L"Вижу, вижу! Ввели вы не математику, а какую-то чушь, чтобы запутать меня! За это вам порча на 15 минут!");
+					res = to_utf8(L"Р’РёР¶Сѓ, РІРёР¶Сѓ! Р’РІРµР»Рё РІС‹ РЅРµ РјР°С‚РµРјР°С‚РёРєСѓ, Р° РєР°РєСѓСЋ-С‚Рѕ С‡СѓС€СЊ, С‡С‚РѕР±С‹ Р·Р°РїСѓС‚Р°С‚СЊ РјРµРЅСЏ! Р—Р° СЌС‚Рѕ РІР°Рј РїРѕСЂС‡Р° РЅР° 15 РјРёРЅСѓС‚!");
 				}
 				return true;
 			}
@@ -344,8 +344,8 @@ private:
 			MySTRutils::tokenize(str, tkns);
 			int begin = rnd.MinValue();
 			int end = rnd.MaxValue();
-			std::string otW = MySTRutils::to_utf8(L"от");
-			std::string doW = MySTRutils::to_utf8(L"до");
+			std::string otW = MySTRutils::to_utf8(L"РѕС‚");
+			std::string doW = MySTRutils::to_utf8(L"РґРѕ");
 			for (size_t i = 0; i < tkns.size()-1; ++i)
 			{
 				if (tkns[i] == otW)
@@ -361,7 +361,7 @@ private:
 			}
 			catch (...)
 			{
-				res = MySTRutils::to_utf8(L"Ой, не получилось!");
+				res = MySTRutils::to_utf8(L"РћР№, РЅРµ РїРѕР»СѓС‡РёР»РѕСЃСЊ!");
 			}
 			return true;
 		}
@@ -485,7 +485,7 @@ private://Command
 
 		FillPublicCommand(tkns, message, res) || FillPrivateCommand(tkns, message, res);
 		if (res.empty())
-			res = to_utf8(L"Нету такой команды, отрок! Не пиши всякую ересь!!!");
+			res = to_utf8(L"РќРµС‚Сѓ С‚Р°РєРѕР№ РєРѕРјР°РЅРґС‹, РѕС‚СЂРѕРє! РќРµ РїРёС€Рё РІСЃСЏРєСѓСЋ РµСЂРµСЃСЊ!!!");
 		return res;
 	}
 
@@ -494,14 +494,14 @@ private://Command
 	{
 		if (tkns[0] == "start")
 		{
-			res = to_utf8(L"Добро пожаловать, отрак!");
+			res = to_utf8(L"Р”РѕР±СЂРѕ РїРѕР¶Р°Р»РѕРІР°С‚СЊ, РѕС‚СЂР°Рє!");
 			usersInfo.AddUser(message);
 			chatsInfo.AddChat(message->chat->id);
 			return true;
 		}
 		else if (tkns[0] == "help")
 		{
-			res = to_utf8(L"Не говори со мной на бесовском языке! Лучше спроси, что я могу, и я дам ответ!");
+			res = to_utf8(L"РќРµ РіРѕРІРѕСЂРё СЃРѕ РјРЅРѕР№ РЅР° Р±РµСЃРѕРІСЃРєРѕРј СЏР·С‹РєРµ! Р›СѓС‡С€Рµ СЃРїСЂРѕСЃРё, С‡С‚Рѕ СЏ РјРѕРіСѓ, Рё СЏ РґР°Рј РѕС‚РІРµС‚!");
 			return true;
 		}
 		else if (tkns[0] == "register")
@@ -531,15 +531,15 @@ private://Command
 		{
 			chatsInfo.ReplaceAgressive(message->chat->id);
 			if (chatsInfo.IsAgressive(message->chat->id))
-				res = MySTRutils::to_utf8(L"Поняла вас, становлюсь злой!");
+				res = MySTRutils::to_utf8(L"РџРѕРЅСЏР»Р° РІР°СЃ, СЃС‚Р°РЅРѕРІР»СЋСЃСЊ Р·Р»РѕР№!");
 			else
-				res = MySTRutils::to_utf8(L"Поняла вас, становлюсь доброй!");
+				res = MySTRutils::to_utf8(L"РџРѕРЅСЏР»Р° РІР°СЃ, СЃС‚Р°РЅРѕРІР»СЋСЃСЊ РґРѕР±СЂРѕР№!");
 			return true;
 		}
 		if (tkns[0] == "update")
 		{
 			responser.Update();
-			res = MySTRutils::to_utf8(L"Я обговила свой словарный запас! готова к дальшейней работе!");
+			res = MySTRutils::to_utf8(L"РЇ РѕР±РіРѕРІРёР»Р° СЃРІРѕР№ СЃР»РѕРІР°СЂРЅС‹Р№ Р·Р°РїР°СЃ! РіРѕС‚РѕРІР° Рє РґР°Р»СЊС€РµР№РЅРµР№ СЂР°Р±РѕС‚Рµ!");
 			return true;
 		}
 		return false;
@@ -548,50 +548,50 @@ private://Command
 	std::string ProcCommandUsers(const std::vector<std::string>& tkns)
 	{
 		if (tkns.size() < 2)
-			return to_utf8(L"Мало аргументов!");
+			return to_utf8(L"РњР°Р»Рѕ Р°СЂРіСѓРјРµРЅС‚РѕРІ!");
 		if (tkns[1] == "print")
 			return usersInfo.GetAllUsers();
-		return to_utf8(L"Команда правильная, аргумент - нет!");
+		return to_utf8(L"РљРѕРјР°РЅРґР° РїСЂР°РІРёР»СЊРЅР°СЏ, Р°СЂРіСѓРјРµРЅС‚ - РЅРµС‚!");
 	}
 	std::string ProcCommandAdmins(const std::vector<std::string>& tkns)
 	{
 		if (tkns.size() < 2)
-			return to_utf8(L"Мало аргументов!");
+			return to_utf8(L"РњР°Р»Рѕ Р°СЂРіСѓРјРµРЅС‚РѕРІ!");
 		if (tkns[1] == "print")
 			return usersInfo.GetAllAdmins();
 		if (tkns[1] == "add")
 		{
 			if (tkns.size() < 3)
-				return to_utf8(L"Команда правильная, аргумент - нет!");
+				return to_utf8(L"РљРѕРјР°РЅРґР° РїСЂР°РІРёР»СЊРЅР°СЏ, Р°СЂРіСѓРјРµРЅС‚ - РЅРµС‚!");
 			if (usersInfo.AddAdmin(MySTRutils::SafelyStoll(tkns[2])))
-				return to_utf8(L"Админ устпешно назначен на должность!");
+				return to_utf8(L"РђРґРјРёРЅ СѓСЃС‚РїРµС€РЅРѕ РЅР°Р·РЅР°С‡РµРЅ РЅР° РґРѕР»Р¶РЅРѕСЃС‚СЊ!");
 			else
-				return to_utf8(L"Ошибка! Нет такого id!");
+				return to_utf8(L"РћС€РёР±РєР°! РќРµС‚ С‚Р°РєРѕРіРѕ id!");
 		}
 		if (tkns[1] == "delete")
 		{
 			if (tkns.size() < 3)
-				return to_utf8(L"Команда правильная, аргумент - нет!");
+				return to_utf8(L"РљРѕРјР°РЅРґР° РїСЂР°РІРёР»СЊРЅР°СЏ, Р°СЂРіСѓРјРµРЅС‚ - РЅРµС‚!");
 			if (usersInfo.DeleteAdmin(MySTRutils::SafelyStoll(tkns[2])))
-				return to_utf8(L"Админ устпешно убран с должноси!");
+				return to_utf8(L"РђРґРјРёРЅ СѓСЃС‚РїРµС€РЅРѕ СѓР±СЂР°РЅ СЃ РґРѕР»Р¶РЅРѕСЃРё!");
 			else
-				return to_utf8(L"Ошибка! Нет такого id!");
+				return to_utf8(L"РћС€РёР±РєР°! РќРµС‚ С‚Р°РєРѕРіРѕ id!");
 		}
-		return to_utf8(L"Команда правильная, аргумент - нет!");
+		return to_utf8(L"РљРѕРјР°РЅРґР° РїСЂР°РІРёР»СЊРЅР°СЏ, Р°СЂРіСѓРјРµРЅС‚ - РЅРµС‚!");
 	}
 
 	std::string ProcComandRegister(const std::vector<std::string>& tkns, const TgBot::Message::Ptr& message)
 	{
 		if (tkns.size() < 2)
-			return to_utf8(L"Мало аргументов!");
+			return to_utf8(L"РњР°Р»Рѕ Р°СЂРіСѓРјРµРЅС‚РѕРІ!");
 		if (tkns[1] == pass)
 		{
 			usersInfo.AddAdmin(message->from->id);
-			return MySTRutils::to_utf8(L"С возвращением, Создатель!");
+			return MySTRutils::to_utf8(L"РЎ РІРѕР·РІСЂР°С‰РµРЅРёРµРј, РЎРѕР·РґР°С‚РµР»СЊ!");
 		}
 		else
 		{
-			return MySTRutils::to_utf8(L"Не знаете, что делаете - так не лезьте! Вам порча на 15 минут!");
+			return MySTRutils::to_utf8(L"РќРµ Р·РЅР°РµС‚Рµ, С‡С‚Рѕ РґРµР»Р°РµС‚Рµ - С‚Р°Рє РЅРµ Р»РµР·СЊС‚Рµ! Р’Р°Рј РїРѕСЂС‡Р° РЅР° 15 РјРёРЅСѓС‚!");
 		}
 	}
 };
