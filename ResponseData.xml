@@ -297,6 +297,16 @@
 				<text special="1">Да я не знаю, сколько, давай за %R и разойдёмся.</text>
 			</values>
 		</variantReplic>
+
+		<variantReplic>
+			<keys>
+				<text>или</text>
+			</keys>
+			<values count="2">
+				<text>Я выбираю вариант 1!</text>
+				<text>Я выбираю вариант 2!</text>
+			</values>
+		</variantReplic>
 		
 	</specialWords>
 

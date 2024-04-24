@@ -16,19 +16,41 @@
 
 #define USERS_DATA_FILE "UsserDB.xml"
 #define RESPONS_DATA_FILE "ResponseData.xml"
+#define AGR_DATA_FILE "ArgessiveArray.xml"
 
 class ChatsInfo
 {
 public:
+	//ChatsInfo()
+	//{
+	//	existOrCreateFile(AGR_DATA_FILE);
+	//	InitArray();
+	//}
+	//~ChatsInfo()
+	//{
+	//	pugi::xml_document doc;
+	//	doc.load_file(AGR_DATA_FILE);
+	//	pugi::xml_node root = doc.child("root");
+	//	for (const auto [key, val] : users)
+	//	{
+	//		pugi::xml_node node;
+	//		node.set_name("info");
+	//		node.append_attribute("id") = key;
+	//		node.append_attribute("agr") = val;
+	//	}
+	//	doc.save_file(AGR_DATA_FILE);;
+	//}
 
 	bool ExistChat(const std::int64_t& id) const
 	{
 		return users.find(id) != users.end();
 	}
-	bool IsAgressive(const std::int64_t& id) const
+	bool IsAgressive(const std::int64_t& id)
 	{
-		if (auto it = users.find(id); it != users.end())
+		if (auto it = users.find(id); it != users.end() && !users.empty())
 			return it->second;
+		else
+			AddChat(id);
 		return false;
 	}
 
@@ -46,6 +68,20 @@ public:
 private:
 
 	std::unordered_map<std::int64_t, bool> users;
+
+private:
+
+	//void InitArray()
+	//{
+	//	pugi::xml_document doc;
+	//	if (!doc.load_file(AGR_DATA_FILE))
+	//		return;
+
+	//	pugi::xml_node root = doc.child("root");
+	//	forxml(i, root, "info")
+	//		users.insert({i.attribute("id").as_llong(), i.attribute("agr").as_bool()});
+	//
+	//}
 
 };
 
@@ -185,13 +221,7 @@ class Responser
 public:
 	Responser()
 	{
-		doc.load_file(RESPONS_DATA_FILE);
-		root = doc.child("root");
-
-		specialWords = root.child("specialWords");
-		defaultWords = root.child("defaultWords");
-		funcWords = root.child("funcWords");
-		emotWords = root.child("emotWords");
+		Update();
 	}
 	~Responser()
 	{
@@ -206,6 +236,7 @@ public:
 		specialWords = root.child("specialWords");
 		defaultWords = root.child("defaultWords");
 		funcWords = root.child("funcWords");
+		emotWords = root.child("emotWords");
 	}
 
 	std::string GetAnswer(std::string str, bool& agr)
@@ -428,7 +459,7 @@ public:
 
 		bool agr = chatsInfo.IsAgressive(message->chat->id);
 		bool agrVal = agr;
-		std::string res =  responser.GetAnswer(str, agrVal);
+		std::string res = responser.GetAnswer(str, agrVal);
 		if (agr != agrVal)
 			chatsInfo.ReplaceAgressive(message->chat->id);
 		return res;
@@ -453,7 +484,7 @@ private://Command
 		std::string res;
 
 		FillPublicCommand(tkns, message, res) || FillPrivateCommand(tkns, message, res);
-		if(res.empty())
+		if (res.empty())
 			res = to_utf8(L"Нету такой команды, отрок! Не пиши всякую ересь!!!");
 		return res;
 	}
@@ -530,9 +561,9 @@ private://Command
 			return usersInfo.GetAllAdmins();
 		if (tkns[1] == "add")
 		{
-			if(tkns.size() < 3)
+			if (tkns.size() < 3)
 				return to_utf8(L"Команда правильная, аргумент - нет!");
-			if(usersInfo.AddAdmin(MySTRutils::SafelyStoll(tkns[2])))
+			if (usersInfo.AddAdmin(MySTRutils::SafelyStoll(tkns[2])))
 				return to_utf8(L"Админ устпешно назначен на должность!");
 			else
 				return to_utf8(L"Ошибка! Нет такого id!");

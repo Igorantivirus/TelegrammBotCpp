@@ -23,7 +23,7 @@ void COnsoleGadalka()
 class GadalkaBot
 {
 public:
-    GadalkaBot(const char* key) : bot(key), processor(TG_API_KEY)
+    GadalkaBot(const char* key) : bot(key), processor(key)
     {
         InitResponses();
     }
@@ -82,8 +82,6 @@ int main()
 #ifdef _WIN32
     system("chcp 65001 > nul");
 #endif
-
-    
 
     //COnsoleGadalka();
     
