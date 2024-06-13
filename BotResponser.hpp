@@ -230,6 +230,8 @@ public:
 
 	void Update()
 	{
+		system("curl -o ResponseData.xml https://raw.githubusercontent.com/Igorantivirus/TelegrammBotCpp/main/ResponseData.xml");
+
 		doc.load_file(RESPONS_DATA_FILE);
 		root = doc.child("root");
 
@@ -594,4 +596,5 @@ private://Command
 			return MySTRutils::to_utf8(L"Не знаете, что делаете - так не лезьте! Вам порча на 15 минут!");
 		}
 	}
+
 };
