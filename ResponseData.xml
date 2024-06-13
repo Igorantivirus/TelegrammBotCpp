@@ -4,6 +4,15 @@
 
 		<variantReplic>
 			<keys>
+				<text>языке написан</text>
+			</keys>
+			<values count="1">
+				<text>Написана я на великом и всемогущем С++</text>
+			</values>
+		</variantReplic>
+		
+		<variantReplic>
+			<keys>
 				<text>где</text>
 			</keys>
 			<values count="4">
