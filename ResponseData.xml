@@ -1,16 +1,6 @@
 ﻿<root>
 
 	<specialWords>
-
-		<variantReplic>
-			<keys>
-				<text>ты жма?</text>
-			</keys>
-			<values count="1">
-				<text>Нет!</text>
-			</values>
-		</variantReplic>
-		
 		
 		<variantReplic>
 			<keys>
