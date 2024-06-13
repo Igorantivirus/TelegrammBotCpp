@@ -84,8 +84,8 @@ int main()
 #endif
 
     //COnsoleGadalka();
-    
-    GadalkaBot bot(TG_API_KEY_TEST);
+
+    GadalkaBot bot(TG_API_KEY);
     bot.Run();
 
 

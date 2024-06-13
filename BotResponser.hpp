@@ -12,7 +12,11 @@
 #include"Randomiser.hpp"
 
 #include"AnekdotParser.hpp"
-#include<MathParse/MathParse.hpp>
+#ifdef _WIN32
+#include <MathParse/MathParse.hpp>
+#else
+#include<MathParse.hpp>
+#endif
 
 #define USERS_DATA_FILE "UsserDB.xml"
 #define RESPONS_DATA_FILE "ResponseData.xml"
@@ -245,24 +249,23 @@ public:
 	{
 		MySTRutils::ToLower(str);
 		std::string res;
-	
-		if (InitAtFuncWords(str, res))
-			return res;
 
-		if(!InitAtSpecial(str, res))
-			InitAtDefault(res);
+        if (InitAtFuncWords(str, res))
+            return res;
 
-		ProcessEmot(str, res, agr);
+        if (!InitAtSpecial(str, res))
+            InitAtDefault(res);
 
-		return res;
-	}
+        ProcessEmot(str, res, agr);
 
+        return res;
+    }
 
 private:
-	pugi::xml_document doc;
-	pugi::xml_node root;
+    pugi::xml_document doc;
+    pugi::xml_node root;
 
-	pugi::xml_node specialWords;
+    pugi::xml_node specialWords;
 	pugi::xml_node defaultWords;
 
 	pugi::xml_node funcWords;
@@ -459,13 +462,13 @@ public:
 		if (str[0] == '/')
 			return CommandProcessor(str, message);
 
-		bool agr = chatsInfo.IsAgressive(message->chat->id);
-		bool agrVal = agr;
-		std::string res = responser.GetAnswer(str, agrVal);
-		if (agr != agrVal)
-			chatsInfo.ReplaceAgressive(message->chat->id);
-		return res;
-	}
+        bool agr = chatsInfo.IsAgressive(message->chat->id);
+        bool agrVal = agr;
+        std::string res = responser.GetAnswer(str, agrVal);
+        if (agr != agrVal)
+            chatsInfo.ReplaceAgressive(message->chat->id);
+        return res;
+    }
 
 private:
 
@@ -558,8 +561,8 @@ private://Command
 	std::string ProcCommandAdmins(const std::vector<std::string>& tkns)
 	{
 		if (tkns.size() < 2)
-			return to_utf8(L"Мало аргументов!");
-		if (tkns[1] == "print")
+            return to_utf8(L"Мало аргументов!");
+        if (tkns[1] == "print")
 			return usersInfo.GetAllAdmins();
 		if (tkns[1] == "add")
 		{
@@ -596,5 +599,4 @@ private://Command
 			return MySTRutils::to_utf8(L"Не знаете, что делаете - так не лезьте! Вам порча на 15 минут!");
 		}
 	}
-
 };
