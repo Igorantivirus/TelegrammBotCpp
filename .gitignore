@@ -10,6 +10,9 @@ TelegrammBotCpp.sln
 #lib
 libcurl-d.dll
 zlibd1.dll
+TgBot.dll
+pugixml.dll
+libcurl.dll
 
 #ProjectFiles
 MyApiKey.hpp

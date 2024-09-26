@@ -12,10 +12,10 @@
 #include"Randomiser.hpp"
 
 #include"AnekdotParser.hpp"
-#ifdef _WIN32
-#include <MathParse/MathParse.hpp>
+#if defined(_WIN32) || defined(_WIN64)
+#include <MathParse/Parser/MathParamParser.hpp>
 #else
-#include<MathParse.hpp>
+#include<Parser/MathParamParser.hpp>
 #endif
 
 #define USERS_DATA_FILE "UsserDB.xml"
@@ -274,7 +274,8 @@ private:
 	Randomiser<int> rnd;
 
 	AnedotGenerator aneks;
-	expr::Parser mathPars;
+	//expr::Parser mathPars;
+	expr::parse::MathParamParser<std::complex<long double>> mathPars;
 
 private:
 
@@ -331,14 +332,7 @@ private:
 		{
 			if (size_t ind = str.rfind(' '); ind != std::string::npos)
 			{
-				try
-				{
-					res = complexToString(mathPars.parse(str.substr(++ind, str.size() - ind)).getProcessingResult().getValue());
-				}
-				catch (...)
-				{
-					res = to_utf8(L"Вижу, вижу! Ввели вы не математику, а какую-то чушь, чтобы запутать меня! За это вам порча на 15 минут!");
-				}
+				res = mathPars.parseNoExcept(str.substr(++ind, str.size() - ind));
 				return true;
 			}
 			return false;

@@ -79,7 +79,7 @@ private:
 
 int main()
 {
-#ifdef _WIN32
+#if defined(_WIN32) || defined(_WIN64)
     system("chcp 65001 > nul");
 #endif
 
