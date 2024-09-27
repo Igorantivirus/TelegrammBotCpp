@@ -145,7 +145,7 @@ public:
         replaceAll(myfName, ':', '_');
         myfName = "downloaded_pages\\" + myfName + ".html";
 
-        if (std::ifstream in(myfName); in.good())
+        if (std::ifstream in(myfName); in.is_open())
         {
             std::string pr;
             while (std::getline(in, pr))
