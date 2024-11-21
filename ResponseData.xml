@@ -309,6 +309,16 @@
 				<text>Я выбираю вариант 2!</text>
 			</values>
 		</variantReplic>
+
+		<variantReplic>
+			<keys>
+				<text>обэме</text>
+			</keys>
+			<values count="2">
+				<text>Хочу я сказать этому вашему Обэме!. . .</text>
+				<text>Хочу я сказать этому вашему Обэме!. . . Ладно, не в этот раз.</text>
+			</values>
+		</variantReplic>
 		
 	</specialWords>
 
