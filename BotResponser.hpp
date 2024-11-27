@@ -464,6 +464,25 @@ public:
         return res;
     }
 
+	std::string ProcessingLineMessage(const TgBot::InlineQuery::Ptr& query)
+	{
+		std::string getMessage = query->query;
+		if (getMessage.empty() || getMessage.back() != '=' || (getMessage.size() == 1 && getMessage.back() == '='))
+			return "";
+		MySTRutils::ToLower(getMessage);
+		std::string res;
+		try
+		{
+			expr::parse::MathParamParser<std::complex<long double>> parser;
+			res = parser.parse(getMessage.substr(0, getMessage.size() - 1)).toStr();
+		}
+		catch (...)
+		{
+			return "";
+		}
+		return getMessage + res;
+	}
+
 private:
 
 	ChatsInfo chatsInfo;

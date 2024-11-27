@@ -72,18 +72,39 @@ private:
                     bot.getApi().sendMessage(message->chat->id, to_utf8(L"Ошибка!"));
                 }
             });
+        bot.getEvents().onInlineQuery([this](const TgBot::InlineQuery::Ptr& query)
+            {
+                std::string res = processor.ProcessingLineMessage(query);
+                if (res.empty())
+                    return;
+
+                std::vector<TgBot::InlineQueryResult::Ptr> results;
+                TgBot::InlineQueryResultArticle::Ptr article = std::make_shared<TgBot::InlineQueryResultArticle>();
+
+                article->title = "Math result.";
+                article->id = "1";
+
+                TgBot::InputTextMessageContent::Ptr messageContent = std::make_shared<TgBot::InputTextMessageContent>();
+                messageContent->messageText = res;
+                article->inputMessageContent = messageContent;
+
+                results.push_back(article);
+                bot.getApi().answerInlineQuery(query->id, results);
+
+
+            });
     }
 
 };
 
+const std::string TgBot::InlineQueryResultArticle::TYPE = "article";
+const std::string TgBot::InputTextMessageContent::TYPE = "text";
 
 int main()
 {
 #if defined(_WIN32) || defined(_WIN64)
     system("chcp 65001 > nul");
 #endif
-
-    //COnsoleGadalka();
 
     GadalkaBot bot(TG_API_KEY);
     bot.Run();
