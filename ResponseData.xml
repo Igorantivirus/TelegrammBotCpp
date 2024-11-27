@@ -309,6 +309,16 @@
 				<text>Я выбираю вариант 2!</text>
 			</values>
 		</variantReplic>
+
+		<variantReplic>
+			<keys>
+				<text>обэме</text>
+			</keys>
+			<values count="2">
+				<text>Хочу я сказать этому вашему Обэме!. . .</text>
+				<text>Хочу я сказать этому вашему Обэме!. . . Ладно, не в этот раз.</text>
+			</values>
+		</variantReplic>
 		
 	</specialWords>
 
@@ -385,6 +395,8 @@
 		<text id="2">считай</text>
 		<text id="2">вычисли</text>
 		<text id="2">сколько будет</text>
+		<text id="2">math</text>
+		<text id="2">calc</text>
 		<text id="3">число</text>
 	</funcWords>
 

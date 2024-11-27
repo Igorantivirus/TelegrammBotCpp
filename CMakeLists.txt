@@ -53,3 +53,4 @@ target_link_libraries(TelegrammBotCpp /usr/local/lib/libTgBot.a ${CMAKE_THREAD_L
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/PagesData.xml ${CMAKE_BINARY_DIR}/bin/PagesData.xml COPYONLY)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/ResponseData.xml ${CMAKE_BINARY_DIR}/bin/ResponseData.xml COPYONLY)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/UsserDB.xml ${CMAKE_BINARY_DIR}/bin/UsserDB.xml COPYONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/FileHeaders/bd.td ${CMAKE_BINARY_DIR}/bin/bd.td COPYONLY)
