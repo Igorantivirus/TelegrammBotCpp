@@ -16,6 +16,7 @@ libcurl.dll
 
 #ProjectFiles
 MyApiKey.hpp
+src/MyApiKey.hpp
 downloaded_pages
 
 # other
