@@ -4,6 +4,15 @@ project(TelegrammBotCpp)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(EXECUTABLE_NAME ${PROJECT_NAME})
+set(THIRD_PARTY_BUILD_DIR "${CMAKE_BINARY_DIR}/_3rdparty")
+
+if(NOT DEFINED MATH_WORKER_DIR)
+    message(FATAL_ERROR "MATH_WORKER_DIR is not defined!")
+endif()
+
+#MathWorker
+set(MATHWORKER_BUILD_SHARED ON)
+add_subdirectory(${MATH_WORKER_DIR} ${THIRD_PARTY_BUILD_DIR}/MathWorker EXCLUDE_FROM_ALL)
 
 find_package(pugixml CONFIG REQUIRED)
 #TgBot
@@ -40,11 +49,12 @@ endif()
 #end TgBot
 
 add_executable(${EXECUTABLE_NAME}
-    main.cpp
+    src/main.cpp
 )
 
 target_link_libraries(${EXECUTABLE_NAME} PRIVATE 
-  pugixml::pugixml
+    pugixml::pugixml
+    MathWorker::MathWorker
 )
 
 #TgBot
