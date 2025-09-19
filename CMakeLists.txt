@@ -1,18 +1,27 @@
 cmake_minimum_required(VERSION 3.16)
 project(TelegrammBotCpp)
 
-set(CMAKE_CXX_STANDARD 17)
+include(FetchContent)
+
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(EXECUTABLE_NAME ${PROJECT_NAME})
 set(THIRD_PARTY_BUILD_DIR "${CMAKE_BINARY_DIR}/_3rdparty")
 
-if(NOT DEFINED MATH_WORKER_DIR)
-    message(FATAL_ERROR "MATH_WORKER_DIR is not defined!")
-endif()
+FetchContent_Declare(
+    MathWorker
+    GIT_REPOSITORY https://github.com/Igorantivirus/MathWorker.git
+    GIT_TAG        origin/master
+)
+FetchContent_MakeAvailable(MathWorker)
 
-#MathWorker
-set(MATHWORKER_BUILD_SHARED ON)
-add_subdirectory(${MATH_WORKER_DIR} ${THIRD_PARTY_BUILD_DIR}/MathWorker EXCLUDE_FROM_ALL)
+# if(NOT DEFINED MATH_WORKER_DIR)
+#     message(FATAL_ERROR "MATH_WORKER_DIR is not defined!")
+# endif()
+
+# #MathWorker
+# set(MATHWORKER_BUILD_SHARED ON)
+# add_subdirectory(${MATH_WORKER_DIR} ${THIRD_PARTY_BUILD_DIR}/MathWorker EXCLUDE_FROM_ALL)
 
 find_package(pugixml CONFIG REQUIRED)
 #TgBot
@@ -55,6 +64,10 @@ add_executable(${EXECUTABLE_NAME}
 target_link_libraries(${EXECUTABLE_NAME} PRIVATE 
     pugixml::pugixml
     MathWorker::MathWorker
+)
+
+target_include_directories(${EXECUTABLE_NAME} PRIVATE
+    ${mathworker_SOURCE_DIR}/include/
 )
 
 #TgBot
