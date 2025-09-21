@@ -1,9 +1,9 @@
 ﻿<pageData mainURL="https://anekdoty.ru" count="5">
-	
-	<page sections="12" key="програм">pro-programmistov</page>
-	<page sections="70" key="евреев">pro-evreev</page>
-	<page sections="22" key="штирлица">pro-shtirlica</page>
-	<page sections="57" key="вовочку">pro-vovochku</page>
-	<page sections="28" key="туп">tupo-no-smeshno</page>
-	
+
+	<page sections="12" key="програм" field="pro-programmistov" />
+	<page sections="70" key="евреев" field="pro-evreev" />
+	<page sections="22" key="штирлица" field="pro-shtirlica" />
+	<page sections="57" key="вовочку" field="pro-vovochku" />
+	<page sections="28" key="туп" field="tupo-no-smeshno" />
+
 </pageData>
