@@ -33,7 +33,7 @@ public:
 
     std::string parseAnekdotAtKeyword(const std::string keyWords, const bool deleteSwearing = false)
     {
-        std::string url = creator_.generateAtKeyWord(keyWords);
+        std::string url = creator_.generateAtKeyWord(keyWords, true);
         std::vector<std::string> anekdots = parseAnekdotsFromUrl(url, deleteSwearing);
         return rnd_.randOf<std::string>(anekdots);
     }
@@ -56,6 +56,7 @@ private:
 
         str = str.substr(ind1, ind2 - ind1);
         StringUtility::replaceAll(str, "<br>", '\n');
+        return true;
     }
 
     bool initAnekdots(const std::string &buffer, std::vector<std::string> &res, const bool deleteSwearing = false) const
