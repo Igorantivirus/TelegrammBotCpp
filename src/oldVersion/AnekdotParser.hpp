@@ -1,13 +1,13 @@
 ﻿#pragma once
 
-#include<cstring>
-#include<string>
-#include<vector>
-#include<filesystem>
-#include<fstream>
+#include <cstring>
+#include <string>
+#include <vector>
+#include <filesystem>
+#include <fstream>
 
-#include<pugixml.hpp>
-#include<curl/curl.h>
+#include <pugixml.hpp>
+#include <curl/curl.h>
 
 #include "Randomiser.hpp"
 
