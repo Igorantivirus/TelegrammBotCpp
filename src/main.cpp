@@ -1,26 +1,10 @@
-#define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
-
+#include "Bot.hpp"
 #include "MyApiKey.hpp"
 
-#include"Bot.hpp"
-
-// void COnsoleGadalka()
-// {
-//     Responser resp;
-
-//     std::string s;
-
-//     bool agr = false;
-
-//     while (true)
-//     {
-//         std::getline(std::cin, s);
-//         std::cout << resp.GetAnswer(s, agr) << std::endl;
-//     }
-// }
-
+#if defined(_WIN32) || defined(_WIN64)
 const std::string TgBot::InlineQueryResultArticle::TYPE = "article";
 const std::string TgBot::InputTextMessageContent::TYPE = "text";
+#endif
 
 int main()
 {
