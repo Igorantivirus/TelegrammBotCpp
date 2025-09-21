@@ -12,6 +12,11 @@ public:
         creator_(file)
     {}
 
+    inline bool isInlineAnekRequest(const std::string& str) const
+    {
+        return str.find("анекдот") != std::string::npos;
+    }
+
     std::vector<std::string> parseAnekdotsFromUrl(const std::string &url, const bool deleteSwearing = false)
     {
         std::string buffer = http_.getRequest(url);
