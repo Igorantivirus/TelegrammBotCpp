@@ -69,4 +69,34 @@ namespace StringUtility
 		}
 	}
 
+    void replaceAll(std::string &str, const char *oldS, const char *newS)
+    {
+        const std::size_t s1 = std::strlen(oldS);
+        const std::size_t s2 = std::strlen(newS);
+        std::size_t ind;
+        std::size_t last = 0;
+        while ((ind = str.find(oldS, last)) != std::string::npos)
+        {
+            str.replace(ind, s1, newS);
+            last = ind + s2;
+        }
+    }
+    void replaceAll(std::string &str, const char *oldS, const char newS, const std::size_t count = 1)
+    {
+        const std::size_t s1 = std::strlen(oldS);
+        std::size_t ind;
+        std::size_t last = 0;
+        while ((ind = str.find(oldS, last)) != std::string::npos)
+        {
+            str.replace(ind, s1, count, newS);
+            last = ind + 1;
+        }
+    }
+    void replaceAll(std::string &str, const char oldS, const char newS)
+    {
+        for (auto &i : str)
+            if (i == oldS)
+                i = newS;
+    }
+
 } // namespace StringUtility
