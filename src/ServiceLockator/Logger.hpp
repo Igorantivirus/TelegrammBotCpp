@@ -18,15 +18,15 @@ enum class LogLevel : unsigned char
     Warning
 };
 
-class ServerLogger
+class Logger
 {
 public:
-    ServerLogger() = default;
-    ServerLogger(const std::string &fileName, const bool writeToConsole = false) : writeToConsole_{writeToConsole}
+    Logger() = default;
+    Logger(const std::string &fileName, const bool writeToConsole = false) : writeToConsole_{writeToConsole}
     {
         openFile(fileName);
     }
-    ~ServerLogger()
+    ~Logger()
     {
         closeFile();
     }
