@@ -16,7 +16,7 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(MathWorker)
 
 find_package(pugixml CONFIG REQUIRED)
-find_package(CURL CONFIG REQUIRED)
+find_package(CURL REQUIRED)
 
 #TgBot
 if(WIN32)
