@@ -6,6 +6,9 @@
 #include <iostream>
 #include <map>
 #include <chrono>
+#include <sstream>
+#include <iomanip>
+#include <ctime>
 
 enum class LogLevel : unsigned char
 {
