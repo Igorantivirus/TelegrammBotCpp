@@ -15,7 +15,7 @@ int main()
 
     Services::instance().log.reset(new Logger{"log.log", true});
 
-    Bot bot(TEST_TG_API_KEY);
+    Bot bot(TG_API_KEY);
     bot.run();
 
     return 0;
