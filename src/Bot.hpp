@@ -5,6 +5,7 @@
 #include <tgbot/tgbot.h>
 
 #include "Responser.hpp"
+#include "ServiceLocator/GeneralLocator.hpp"
 
 class Bot
 {
@@ -20,24 +21,24 @@ public:
     void run()
     {
         TgBot::TgLongPoll longPoll(bot_);
+        Services::instance().log->log("Bot running", LogLevel::Info);
         while (true)
         {
             try
             {
-                std::cout << "Long poll started" << '\n';
                 longPoll.start();
             }
             catch (const TgBot::TgException& e)
             {
-                std::cout << "Bot error: " << e.what() << '\n';
+                Services::instance().log->log(std::string("Bot error: ") + e.what(), LogLevel::Error);
             }
             catch(const std::exception& e)
             {
-                std::cout << "Error: " << e.what() << '\n';
+                Services::instance().log->log(std::string("Bot error: ") + e.what(), LogLevel::Error);
             }
             catch (...)
             {
-                std::cout << "Unknown Error" << '\n';
+                Services::instance().log->log("Unknown Error", LogLevel::Error);
             }
         }
     }
@@ -78,45 +79,5 @@ private:
     void start(TgBot::Message::Ptr message) const
     {
 
-    }
-
-    
-
-    void initResponses()
-    {
-        // bot.getEvents().onAnyMessage([this](TgBot::Message::Ptr message)
-        //     {
-        //         std::string res;
-        //         try
-        //         {
-        //             res = processor.Processing(message->text, message);
-        //             bot.getApi().sendMessage(message->chat->id, res);
-        //         }
-        //         catch (...)
-        //         {
-        //             std::cout << "Error: " << "Trying send message \"" << res << "\"\n";
-        //             bot.getApi().sendMessage(message->chat->id, to_utf8(L"Ошибка!"));
-        //         }
-        //     });
-        // bot.getEvents().onInlineQuery([this](const TgBot::InlineQuery::Ptr& query)
-        //     {
-        //         std::string res = processor.ProcessingLineMessage(query);
-        //         if (res.empty())
-        //             return;
-
-        //         std::vector<TgBot::InlineQueryResult::Ptr> results;
-        //         TgBot::InlineQueryResultArticle::Ptr article = std::make_shared<TgBot::InlineQueryResultArticle>();
-
-        //         article->title = "Math result.";
-        //         article->id = "1";
-
-        //         TgBot::InputTextMessageContent::Ptr messageContent = std::make_shared<TgBot::InputTextMessageContent>();
-        //         messageContent->messageText = res;
-        //         article->inputMessageContent = messageContent;
-
-        //         results.push_back(article);
-        //         bot.getApi().answerInlineQuery(query->id, results);
-
-        //     });
     }
 };

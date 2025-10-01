@@ -50,12 +50,10 @@ private:
         mathWorker::Signature signature = mathWorker::generator::mathSignature();
         mathWorker::BaseTokenizer tokenizer{signature};
         mathWorker::MathParser parser(tokenizer);
-        mathWorker::BufferedSignatureConnector connector(signature);
+        mathWorker::DirectSignatureConnector connector(signature);
 
         for(const auto& i : additional)
             connector.addTerm(std::string(i));
-            
-        connector.fillSignature();
 
         std::string res = parser.parse(expression)->replace(signature.getVariableContext())->calculate(signature)->toString();
         return res;

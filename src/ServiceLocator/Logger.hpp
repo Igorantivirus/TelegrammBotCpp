@@ -63,7 +63,7 @@ public:
         return logFile_.is_open();
     }
 
-    void log(std::string message, LogLevel level)
+    void log(const std::string& message, LogLevel level)
     {
         std::string time = getCurentTime();
 

@@ -1,5 +1,6 @@
-#include "Bot.hpp"
 #include "MyApiKey.hpp"
+#include "ServiceLocator/GeneralLocator.hpp"
+#include "Bot.hpp"
 
 #if defined(_WIN32) || defined(_WIN64)
 const std::string TgBot::InlineQueryResultArticle::TYPE = "article";
@@ -12,7 +13,9 @@ int main()
     system("chcp 65001 > nul");
 #endif
 
-    Bot bot(TG_API_KEY);
+    Services::instance().log.reset(new Logger{"log.log", true});
+
+    Bot bot(TEST_TG_API_KEY);
     bot.run();
 
     return 0;
