@@ -1,7 +1,5 @@
 #pragma once
 
-#include <iostream>
-
 #include <tgbot/tgbot.h>
 
 #include "Responser.hpp"
