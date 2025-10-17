@@ -1,12 +1,12 @@
 #pragma once
 
-#include <vector>
 #include <string>
 
 #include <tgbot/tgbot.h>
 
 #include "MathSolver.hpp"
 #include "Anekdots/AnekdotGenerator.hpp"
+#include "StringUtility.hpp"
 
 class Responser
 {
@@ -28,9 +28,35 @@ public:
         return {"", false};
     }
 
+    std::string getResponse(TgBot::Message::Ptr message)
+    {
+        if(message->text.starts_with("calc "))
+            return mathResponse(message->text);
+        return baseResponse(message);
+    }
+    std::string getResponse(std::string str)
+    {
+        if(str.starts_with("calc "))
+            return mathResponse(str);
+        return "Error";
+    }
+
 private:
     MathSolver solver_;
     AnekdotGenerator generator_;
 
 private:
+
+    std::string mathResponse(std::string& str)
+    {
+        str.erase(0, 5);//Удаляем "calc "
+        StringUtility::replaceAll(str, " ", "");
+            return solver_.getMathResponseResult(str);
+    }
+
+    std::string baseResponse(TgBot::Message::Ptr message)
+    {
+        return "Мои ответы в режиме чата пока что в тестовом режиме. Пока что я могу только считать математику, но скоро я многому научусь!";
+    }
+
 };
