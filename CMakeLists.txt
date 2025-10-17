@@ -71,3 +71,9 @@ else()
     target_link_libraries(${EXECUTABLE_NAME} PRIVATE /usr/local/lib/libTgBot.a ${CMAKE_THREAD_LIBS_INIT} ${OPENSSL_LIBRARIES} ${Boost_LIBRARIES})
 
 endif()
+
+if (MSVC)
+  target_compile_options(${EXECUTABLE_NAME} PRIVATE /std:c++23 /EHsc)
+else()
+  target_compile_features(${EXECUTABLE_NAME} PRIVATE cxx_std_23)
+endif()
