@@ -23,3 +23,7 @@ downloaded_pages
 out
 .vscode/
 build/
+
+.clang-format
+.clangd
+CMakePresets.json
